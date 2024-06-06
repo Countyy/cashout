@@ -18,9 +18,11 @@ import { DepositTransaction } from './deposit-transaction'
 export function NewTransaction({
   modalVisible,
   setModalVisible,
+  fetchTransactions
 }: {
   modalVisible: boolean
   setModalVisible: (value: boolean) => void
+  fetchTransactions: () => Promise<void>
 }) {
   const [transactionType, setTransactionType] = useState<
     'deposit' | 'withdraw' | null
@@ -61,7 +63,7 @@ export function NewTransaction({
               />
             </View>
           </View>
-          {transactionType === 'withdraw' && <WithdrawTransaction setModalVisible={setModalVisible}/>}
+          {transactionType === 'withdraw' && <WithdrawTransaction setModalVisible={setModalVisible} fetchTransactions={fetchTransactions}/>}
           {transactionType === 'deposit' && <DepositTransaction />}
         </ScrollView>
       </View>

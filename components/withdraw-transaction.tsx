@@ -2,19 +2,36 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import { RadioButton } from './radio-button'
 import CurrencyInput from 'react-native-currency-input'
 import { useState } from 'react'
+import { setItem } from '@/lib/storage/setItem'
+import { randomUUID } from 'expo-crypto'
 
 type paymentMethods = 'credit-card' | 'debit-card' | 'cash' | 'pix'
 
 export function WithdrawTransaction({
   setModalVisible,
+  fetchTransactions
 }: {
   setModalVisible: (visible: boolean) => void
+  fetchTransactions: () => Promise<void>
 }) {
   const [paymentMethod, setPaymentMethod] = useState<paymentMethods | null>(
     null
   )
-  const [value, setValue] = useState<number | null>(null)
+  const [amount, setAmount] = useState<number | null>(null)
   const [description, setDescription] = useState<string>('')
+
+  async function handleSubmitTransaction() {
+    if (!paymentMethod || !amount || !description) return
+    await setItem('transactions', {
+      amount,
+      paymentMethod,
+      description,
+      date: new Date(),
+      id: randomUUID(),
+    })
+    setModalVisible(false)
+    fetchTransactions()
+  }
 
   return (
     <View className="space-y-4 h-full w-full mt-4">
@@ -66,8 +83,8 @@ export function WithdrawTransaction({
             placeholder="R$99,99"
             className="border-zinc-800 border rounded-lg text-white px-2 w-full h-10"
             placeholderTextColor={'rgb(39, 39, 42)'}
-            value={value}
-            onChangeValue={setValue}
+            value={amount}
+            onChangeValue={setAmount}
           />
         </View>
       </View>
@@ -95,7 +112,11 @@ export function WithdrawTransaction({
         >
           <Text className="text-white">Cancelar</Text>
         </TouchableOpacity>
-        <TouchableOpacity className="border rounded-lg h-12 flex-1 flex justify-center items-center bg-yellow-300 px-4" disabled={!paymentMethod || !value || !description}>
+        <TouchableOpacity
+          className="border rounded-lg h-12 flex-1 flex justify-center items-center bg-yellow-300 px-4"
+          disabled={!paymentMethod || !amount || !description}
+          onPress={() => handleSubmitTransaction()}
+        >
           <Text className="text-black font-semibold text-center">
             Registrar Transação
           </Text>
