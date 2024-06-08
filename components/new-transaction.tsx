@@ -3,13 +3,7 @@ import Modal from 'react-native-modal'
 import {
   Text,
   View,
-  KeyboardAvoidingView,
-  Dimensions,
-  StatusBar,
-  TextInput,
-  TouchableOpacity,
 } from 'react-native'
-import CurrencyInput from 'react-native-currency-input'
 import { useState } from 'react'
 import { ScrollView } from 'react-native'
 import { WithdrawTransaction } from './withdraw-transaction'
@@ -18,7 +12,7 @@ import { DepositTransaction } from './deposit-transaction'
 export function NewTransaction({
   modalVisible,
   setModalVisible,
-  fetchTransactions
+  fetchTransactions,
 }: {
   modalVisible: boolean
   setModalVisible: (value: boolean) => void
@@ -40,8 +34,11 @@ export function NewTransaction({
       onBackdropPress={() => setModalVisible(false)}
       className="flex items-center"
     >
-      <View className='h-[90%] w-full'>
-        <ScrollView className="w-full bg-background rounded-lg px-8 py-6 space-y-8" fadingEdgeLength={200}>
+      <View className="h-[90%] w-full">
+        <ScrollView
+          className="w-full bg-background rounded-lg px-8 py-6 space-y-8"
+          fadingEdgeLength={200}
+        >
           <View className="h-fit space-y-1">
             <Text className="text-white font-bold text-xl">
               Tipo de transação
@@ -63,8 +60,18 @@ export function NewTransaction({
               />
             </View>
           </View>
-          {transactionType === 'withdraw' && <WithdrawTransaction setModalVisible={setModalVisible} fetchTransactions={fetchTransactions}/>}
-          {transactionType === 'deposit' && <DepositTransaction />}
+          {transactionType === 'withdraw' && (
+            <WithdrawTransaction
+              setModalVisible={setModalVisible}
+              fetchTransactions={fetchTransactions}
+            />
+          )}
+          {transactionType === 'deposit' && (
+            <DepositTransaction
+              setModalVisible={setModalVisible}
+              fetchTransactions={fetchTransactions}
+            />
+          )}
         </ScrollView>
       </View>
     </Modal>

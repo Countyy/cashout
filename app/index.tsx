@@ -40,7 +40,7 @@ export default function Index() {
         fetchTransactions={fetchTransactions}
       />
 
-      <View className="bg-background flex-1 px-4 pt-20 flex gap-y-8">
+      <View className="bg-background min-h-screen px-4 pt-20 flex gap-y-8">
         <Header setModalVisible={setModalVisible} />
 
         <FlatList

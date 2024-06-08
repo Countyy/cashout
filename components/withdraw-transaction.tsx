@@ -9,7 +9,7 @@ type paymentMethods = 'credit-card' | 'debit-card' | 'cash' | 'pix'
 
 export function WithdrawTransaction({
   setModalVisible,
-  fetchTransactions
+  fetchTransactions,
 }: {
   setModalVisible: (visible: boolean) => void
   fetchTransactions: () => Promise<void>
@@ -28,6 +28,7 @@ export function WithdrawTransaction({
       description,
       date: new Date(),
       id: randomUUID(),
+      isDeposit: false,
     })
     setModalVisible(false)
     fetchTransactions()
