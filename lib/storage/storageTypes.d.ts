@@ -5,6 +5,14 @@ type transaction = {
   id: string
   amount: number
   date: Date
-  paymentMethod: paymentMethods
+
   description: string
-}
+} & (
+  | {
+      isDeposit: true
+    }
+  | {
+      isDeposit: false 
+      paymentMethod: paymentMethods
+    }
+)
