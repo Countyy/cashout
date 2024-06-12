@@ -6,7 +6,7 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={DarkTheme}>
       <StatusBar style="inverted" />
-      <Stack screenOptions={{ headerShown: false }} />
+      <Stack screenOptions={{ headerShown: false, animation: 'fade_from_bottom' }} />
     </ThemeProvider>
   )
 }
