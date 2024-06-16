@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { FlatList, RefreshControl, View } from 'react-native'
 import { NewTransaction } from '@/components/new-transaction'
 import { Header } from '@/components/header'
 import { getItem } from '@/lib/storage/getItem'
 import { Transaction } from '@/components/transaction'
+import { useFocusEffect } from '@react-navigation/native'
 
 export default function Index() {
   const [modalVisible, setModalVisible] = useState(false)
@@ -32,11 +33,11 @@ export default function Index() {
     startFetchTransactions()
   }, [])
 
-  useEffect(() => {
-    setInterval(async () => {
-      await fetchTransactions()
-    }, 60000)
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      fetchTransactions()
+    }, [])
+  )
 
   return (
     <>
