@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { FlatList, View } from 'react-native'
+import { FlatList, RefreshControl, View } from 'react-native'
 import { NewTransaction } from '@/components/new-transaction'
 import { Header } from '@/components/header'
 import { getItem } from '@/lib/storage/getItem'
@@ -8,15 +8,21 @@ import { Transaction } from '@/components/transaction'
 export default function Index() {
   const [modalVisible, setModalVisible] = useState(false)
   const [transactions, setTransactions] = useState<transaction[]>([])
+  const [refreshing, setRefreshing] = useState<boolean>(false)
 
   async function fetchTransactions() {
+    setRefreshing(true)
     const items = await getItem('transactions')
 
-    if (typeof items === 'string' || !items) return
+    if (typeof items === 'string' || !items) {
+      setTransactions([])
+      return setRefreshing(false)
+    }
 
     if (items) {
       setTransactions(items)
     }
+    setRefreshing(false)
   }
 
   useEffect(() => {
@@ -50,6 +56,12 @@ export default function Index() {
           renderItem={({ item }) => {
             return <Transaction transaction={item} key={item.id} />
           }}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={fetchTransactions}
+            />
+          }
         />
       </View>
     </>
