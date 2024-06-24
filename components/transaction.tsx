@@ -1,13 +1,16 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/pt-br'
+import { useRouter, useLocalSearchParams } from 'expo-router'
 
 dayjs.extend(relativeTime)
 
 type paymentMethods = 'credit-card' | 'debit-card' | 'cash' | 'pix'
 
 export function Transaction({ transaction }: { transaction: transaction }) {
+  const router = useRouter()
+
   const friendlyPaymentMethods: { [key in paymentMethods]: string } = {
     'credit-card': 'cartão de crédito',
     'debit-card': 'cartão de débito',
@@ -28,7 +31,7 @@ export function Transaction({ transaction }: { transaction: transaction }) {
     : 'transparent'
 
   return (
-    <View className="mb-4 h-18">
+    <TouchableOpacity className="mb-4 h-18" onPress={() => router.push('transaction/' + JSON.stringify(transaction))}>
       <View className="py-3 px-4 border-l" style={{ borderColor: borderColor }}>
         <View className="flex flex-row justify-between">
           <Text className="text-white">
@@ -49,6 +52,6 @@ export function Transaction({ transaction }: { transaction: transaction }) {
           }).format(transaction.amount)}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
