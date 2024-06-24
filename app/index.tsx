@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react'
-import { FlatList, RefreshControl, View } from 'react-native'
+import { FlatList, RefreshControl, View, Text } from 'react-native'
 import { NewTransaction } from '@/components/new-transaction'
 import { Header } from '@/components/header'
 import { getItem } from '@/lib/storage/getItem'
@@ -54,6 +54,11 @@ export default function Index() {
           className="flex-1"
           fadingEdgeLength={200}
           data={transactions}
+          ListEmptyComponent={
+            <Text className="text-center text-gray-400">
+              Nenhuma transação cadastrada
+            </Text>
+          }
           renderItem={({ item }) => {
             return <Transaction transaction={item} key={item.id} />
           }}
