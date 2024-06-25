@@ -48,7 +48,7 @@ export default function Index() {
       />
 
       <View className="bg-background min-h-screen px-4 pt-20 flex gap-y-8">
-        <Header setModalVisible={setModalVisible} />
+        <Header setModalVisible={setModalVisible} transactions={transactions}/>
 
         <FlatList
           className="flex-1"
