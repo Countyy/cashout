@@ -1,13 +1,11 @@
 import { useEffect, useState, useCallback } from 'react'
 import { FlatList, RefreshControl, View, Text } from 'react-native'
-import { NewTransaction } from '@/components/new-transaction'
 import { Header } from '@/components/header'
 import { getItem } from '@/lib/storage/getItem'
 import { Transaction } from '@/components/transaction'
 import { useFocusEffect } from '@react-navigation/native'
 
 export default function Index() {
-  const [modalVisible, setModalVisible] = useState(false)
   const [transactions, setTransactions] = useState<transaction[]>([])
   const [refreshing, setRefreshing] = useState<boolean>(false)
 
@@ -40,36 +38,28 @@ export default function Index() {
   )
 
   return (
-    <>
-      <NewTransaction
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        fetchTransactions={fetchTransactions}
+    <View className="bg-background h-full w-full px-4 pt-12 flex">
+      <Header transactions={transactions} />
+
+      <FlatList
+        className="flex-1 mt-8"
+        fadingEdgeLength={200}
+        data={transactions}
+        ListEmptyComponent={
+          <Text className="text-center text-gray-400">
+            Nenhuma transação cadastrada
+          </Text>
+        }
+        renderItem={({ item }) => {
+          return <Transaction transaction={item} key={item.id} />
+        }}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={fetchTransactions}
+          />
+        }
       />
-
-      <View className="bg-background min-h-screen px-4 pt-20 flex gap-y-8">
-        <Header setModalVisible={setModalVisible} transactions={transactions}/>
-
-        <FlatList
-          className="flex-1"
-          fadingEdgeLength={200}
-          data={transactions}
-          ListEmptyComponent={
-            <Text className="text-center text-gray-400">
-              Nenhuma transação cadastrada
-            </Text>
-          }
-          renderItem={({ item }) => {
-            return <Transaction transaction={item} key={item.id} />
-          }}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={fetchTransactions}
-            />
-          }
-        />
-      </View>
-    </>
+    </View>
   )
 }

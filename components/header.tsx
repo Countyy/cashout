@@ -3,10 +3,8 @@ import Icon from 'react-native-vector-icons/AntDesign'
 import { useRouter } from 'expo-router'
 
 export function Header({
-  setModalVisible,
   transactions = [],
 }: {
-  setModalVisible: (visible: boolean) => void
   transactions: transaction[]
 }) {
   const router = useRouter()
@@ -46,7 +44,7 @@ export function Header({
           <TouchableOpacity onPress={() => router.push('/settings')}>
             <Icon name="setting" color={'white'} size={24} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <TouchableOpacity onPress={() => router.push('/new-transaction')}>
             <Icon name="pluscircle" color={'white'} size={24} />
           </TouchableOpacity>
         </View>

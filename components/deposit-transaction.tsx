@@ -1,16 +1,16 @@
 import { setItem } from '@/lib/storage/setItem'
 import { randomUUID } from 'expo-crypto'
+import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import CurrencyInput from 'react-native-currency-input'
 
 export function DepositTransaction({
-  setModalVisible,
   fetchTransactions,
 }: {
-  setModalVisible: (visible: boolean) => void
   fetchTransactions: () => Promise<void>
 }) {
+  const router = useRouter()
   const [description, setDescription] = useState<string>('')
   const [amount, setAmount] = useState<number | null>(null)
 
@@ -23,7 +23,7 @@ export function DepositTransaction({
       id: randomUUID(),
       isDeposit: true,
     })
-    setModalVisible(false)
+    router.back()
     fetchTransactions()
   }
 
@@ -66,7 +66,7 @@ export function DepositTransaction({
       <View className="flex flex-row justify-between w-full space-x-1 mb-10">
         <TouchableOpacity
           className="border border-zinc-800 rounded-lg h-12 flex-1 flex justify-center items-center px-4"
-          onPress={() => setModalVisible(false)}
+          onPress={() => router.back()}
         >
           <Text className="text-white">Cancelar</Text>
         </TouchableOpacity>
