@@ -35,24 +35,28 @@ export default function Settings() {
         children={modalChildren}
         backdropOpacity={0.85}
       />
-      <View className="bg-background min-h-screen px-4 pt-12 flex gap-y-8">
-        <View className="flex-row items-center">
-          <TouchableOpacity onPress={() => router.back()}>
-            <Icon name="chevron-small-left" size={36} color="white" />
-          </TouchableOpacity>
+      <View className="bg-background h-full">
+        <View className="space-y-4 px-4 pt-12 flex">
+          <View className="flex-row items-center">
+            <TouchableOpacity onPress={() => router.back()}>
+              <Icon name="chevron-small-left" size={36} color="white" />
+            </TouchableOpacity>
 
-          <Text className="text-white text-3xl font-medium">Configurações</Text>
-        </View>
-
-        <View>
-          <TouchableOpacity
-            className="border-red-600 border rounded justify-center items-center py-4"
-            onPress={() => handleOpenModal('delete-all')}
-          >
-            <Text className="text-red-600 text-base">
-              Apagar todas as transações
+            <Text className="text-white text-3xl font-medium">
+              Configurações
             </Text>
-          </TouchableOpacity>
+          </View>
+
+          <View>
+            <TouchableOpacity
+              className="border-red-600 border rounded justify-center items-center py-4"
+              onPress={() => handleOpenModal('delete-all')}
+            >
+              <Text className="text-red-600 text-base">
+                Apagar todas as transações
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </>
