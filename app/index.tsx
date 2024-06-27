@@ -13,7 +13,7 @@ export default function Index() {
 
   async function fetchTransactions() {
     setRefreshing(true)
-    const items = await getItem('transactions')
+    const items = await getItem<transaction>('transactions')
 
     if (typeof items === 'string' || !items) {
       setTransactions([])
