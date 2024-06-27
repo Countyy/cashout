@@ -1,11 +1,11 @@
 type paymentMethods = 'credit-card' | 'debit-card' | 'cash' | 'pix'
-type keys = 'transactions'
+type keys = 'transactions' | 'labels'
 
 type transaction = {
   id: string
   amount: number
   date: Date
-
+  labels?: label[] | null
   description: string
 } & (
   | {
@@ -16,3 +16,8 @@ type transaction = {
       paymentMethod: paymentMethods
     }
 )
+
+type label = {
+  name: string
+  color: string
+}
