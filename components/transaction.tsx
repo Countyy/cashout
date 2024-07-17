@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/pt-br'
-import { useRouter, useLocalSearchParams } from 'expo-router'
+import { useRouter } from 'expo-router'
 
 dayjs.extend(relativeTime)
 
@@ -31,7 +31,10 @@ export function Transaction({ transaction }: { transaction: transaction }) {
     : 'transparent'
 
   return (
-    <TouchableOpacity className="mb-4 h-18" onPress={() => router.push('transaction/' + JSON.stringify(transaction))}>
+    <TouchableOpacity
+      className="mb-4 h-18"
+      onPress={() => router.push('transaction/' + JSON.stringify(transaction))}
+    >
       <View className="py-3 px-4 border-l" style={{ borderColor: borderColor }}>
         <View className="flex flex-row justify-between">
           <Text className="text-white">
