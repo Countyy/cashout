@@ -1,18 +1,15 @@
 import { RadioButton } from '@/components/radio-button'
-import Modal from 'react-native-modal'
 import { Text, View } from 'react-native'
 import { useState } from 'react'
 import { ScrollView } from 'react-native'
 import { WithdrawTransaction } from '@/components/withdraw-transaction'
 import { DepositTransaction } from '../components/deposit-transaction'
-import { useRouter } from 'expo-router'
 
 export default function NewTransaction({
   fetchTransactions,
 }: {
   fetchTransactions: () => Promise<void>
 }) {
-  const router = useRouter()
   const [transactionType, setTransactionType] = useState<
     'deposit' | 'withdraw' | null
   >('withdraw')
@@ -20,7 +17,7 @@ export default function NewTransaction({
   return (
     <View className="h-full w-full bg-background">
       <ScrollView
-        className="w-full bg-background rounded-lg px-8 space-y-8 mt-8"
+        className="w-full bg-background rounded-lg px-8 space-y-8 mt-8 pt-4"
         fadingEdgeLength={200}
       >
         <View className="h-fit space-y-1">

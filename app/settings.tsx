@@ -12,9 +12,13 @@ export default function Settings() {
 
   function handleOpenModal(variation: string) {
     switch (variation) {
-      case 'delete-all':
+      case 'delete-all-transactions':
         setModalChildren(
           <DeleteAllTransactions setModalVisible={setModalVisible} />
+        )
+      case 'delete-all-labels':
+        setModalChildren(
+          <DeleteAllLabels setModalVisible={setModalVisible} />
         )
     }
     setModalVisible(true)
@@ -49,11 +53,29 @@ export default function Settings() {
 
           <View>
             <TouchableOpacity
+              className="border-slate-300 border rounded justify-center items-center py-4"
+              onPress={() => router.push('/labels')}
+            >
+              <Text className="text-white text-base">Etiquetas</Text>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity
               className="border-red-600 border rounded justify-center items-center py-4"
-              onPress={() => handleOpenModal('delete-all')}
+              onPress={() => handleOpenModal('delete-all-transactions')}
             >
               <Text className="text-red-600 text-base">
                 Apagar todas as transações
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity
+              className="border-red-600 border rounded justify-center items-center py-4"
+              onPress={() => handleOpenModal('delete-all-labels')}
+            >
+              <Text className="text-red-600 text-base">
+                Apagar todas as etiquetas
               </Text>
             </TouchableOpacity>
           </View>
@@ -87,6 +109,40 @@ function DeleteAllTransactions({
             await AsyncStorage.clear()
             setModalVisible(false)
             ToastAndroid.show('Transações apagadas', ToastAndroid.SHORT)
+          }}
+        >
+          <Text className="text-white text-center">Apagar tudo</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+}
+
+function DeleteAllLabels({
+  setModalVisible,
+}: {
+  setModalVisible: (value: boolean) => void
+}) {
+  return (
+    <View className="w-10/12 h-1/5 bg-background rounded-lg py-4 px-6 justify-between border-[0.5px] border-gray-200">
+      <Text className="bg-background text-white text-center">
+        Tem certeza que deseja apagar todas as etiquetas do registro?
+      </Text>
+
+      <View className="flex-row gap-x-1">
+        <TouchableOpacity
+          className="flex-1 border-[0.5px] border-gray-200 rounded py-2"
+          onPress={() => setModalVisible(false)}
+        >
+          <Text className="text-gray-200 text-center">Cancelar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          className="flex-1 bg-red-600 rounded py-2"
+          onPress={async () => {
+            AsyncStorage.removeItem('labels', () => {
+              setModalVisible(false)
+              ToastAndroid.show('Etiquetas apagadas', ToastAndroid.SHORT)
+            })
           }}
         >
           <Text className="text-white text-center">Apagar tudo</Text>

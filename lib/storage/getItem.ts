@@ -1,8 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export async function getItem<T>(
-  key: keys
-): Promise<string | T[] | null> {
+export async function getItem<T>(key: keys): Promise<string | T[] | null> {
   try {
     const value = (await AsyncStorage.getItem(key)) as string | null
 

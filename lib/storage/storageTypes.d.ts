@@ -1,5 +1,6 @@
 type paymentMethods = 'credit-card' | 'debit-card' | 'cash' | 'pix'
 type keys = 'transactions' | 'labels'
+type values = transaction | label
 
 type transaction = {
   id: string
@@ -12,7 +13,7 @@ type transaction = {
       isDeposit: true
     }
   | {
-      isDeposit: false 
+      isDeposit: false
       paymentMethod: paymentMethods
     }
 )
