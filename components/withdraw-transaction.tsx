@@ -6,7 +6,7 @@ import { setItem } from '@/lib/storage/setItem'
 import { randomUUID } from 'expo-crypto'
 import Icon from 'react-native-vector-icons/AntDesign'
 import { useRouter } from 'expo-router'
-import { Labels } from './labels'
+import { Labels } from './select-labels-modal'
 
 type paymentMethods = 'credit-card' | 'debit-card' | 'cash' | 'pix'
 
