@@ -22,7 +22,12 @@ export function RadioButton<T>({
           onPress={() => setSelectedRadioButton(id)}
         >
           <View className="flex-1 flex justify-center items-center">
-            <Icon size={Dimensions.get('window').width / 10} name={icon} color={'white'} className="flex-1" />
+            <Icon
+              size={Dimensions.get('window').width / 10}
+              name={icon}
+              color={'white'}
+              className="flex-1"
+            />
           </View>
           <View className="h-8 flex justify-center items-center">
             <Text className="text-white text-center text-xs">{name}</Text>
@@ -34,7 +39,12 @@ export function RadioButton<T>({
           onPress={() => setSelectedRadioButton(id)}
         >
           <View className="flex-1 flex justify-center items-center">
-            <Icon size={Dimensions.get('window').width / 10} name={icon} color={'white'} className="flex-1" />
+            <Icon
+              size={Dimensions.get('window').width / 10}
+              name={icon}
+              color={'white'}
+              className="flex-1"
+            />
           </View>
           <View className="h-8 flex justify-center items-center">
             <Text className="text-white text-center text-xs">{name}</Text>

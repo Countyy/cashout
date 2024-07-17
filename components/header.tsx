@@ -2,11 +2,7 @@ import { View, TouchableOpacity, Text } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import { useRouter } from 'expo-router'
 
-export function Header({
-  transactions = [],
-}: {
-  transactions: transaction[]
-}) {
+export function Header({ transactions = [] }: { transactions: transaction[] }) {
   const router = useRouter()
 
   const totalIncome = transactions.reduce((acc, transaction) => {
