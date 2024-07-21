@@ -12,6 +12,7 @@ import Modal from 'react-native-modal'
 import { useCallback, useState } from 'react'
 import { getItem } from '@/lib/storage/getItem'
 import { CreateLabel } from '@/components/create-label-modal'
+import { removeItem } from '@/lib/storage/removeItem'
 
 export default function Labels() {
   const router = useRouter()
@@ -39,6 +40,12 @@ export default function Labels() {
       fetchLabels()
     }, [])
   )
+
+  async function deleteLabel(id: string) {
+    await removeItem('labels', id)
+
+    setLabels(labels.filter((label) => label.id !== id))
+  }
 
   return (
     <View className="flex w-full h-full bg-background">
@@ -99,7 +106,7 @@ export default function Labels() {
                 ></View>
                 <Text className="text-white">{item.name}</Text>
               </View>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => deleteLabel(item.id)}>
                 <FontAwesome name="times-circle" color="red" size={14} />
               </TouchableOpacity>
             </View>
