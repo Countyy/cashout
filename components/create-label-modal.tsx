@@ -1,11 +1,12 @@
-import { setItem } from "@/lib/storage/setItem"
-import { useState } from "react"
-import { View, TextInput, TouchableOpacity, Text } from "react-native"
-import ColorPicker, { HueSlider, Panel1 } from "reanimated-color-picker"
+import { setItem } from '@/lib/storage/setItem'
+import { useState } from 'react'
+import { View, TextInput, TouchableOpacity, Text } from 'react-native'
+import { randomUUID } from 'expo-crypto'
+import ColorPicker, { HueSlider, Panel1 } from 'reanimated-color-picker'
 
 export function CreateLabel({
   setModalVisible,
-  fetchLabels
+  fetchLabels,
 }: {
   setModalVisible: (value: boolean) => void
   fetchLabels: () => Promise<void>
@@ -19,11 +20,11 @@ export function CreateLabel({
 
     setLoading(true)
 
-    await setItem('labels', { name, color })
+    await setItem('labels', { name, color, id: randomUUID() })
 
     setLoading(false)
     setModalVisible(false)
-    fetchLabels() 
+    fetchLabels()
   }
 
   return (

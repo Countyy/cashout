@@ -21,4 +21,5 @@ type transaction = {
 type label = {
   name: string
   color: string
+  id: string
 }

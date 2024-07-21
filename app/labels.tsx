@@ -7,6 +7,7 @@ import {
   RefreshControl,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
+import FontAwesome from 'react-native-vector-icons/FontAwesome6'
 import Modal from 'react-native-modal'
 import { useCallback, useState } from 'react'
 import { getItem } from '@/lib/storage/getItem'
@@ -87,14 +88,20 @@ export default function Labels() {
         renderItem={({ item }) => {
           return (
             <View
-              className="flex flex-row space-x-2 items-center border border-white w-fit rounded-lg m-0 py-1 px-2 basis-auto"
-              key={item.name}
+              className="flex flex-row space-x-3 items-center border w-fit rounded-xl m-0 py-1 px-2"
+              key={item.id}
+              style={{ borderColor: `${item.color}` }}
             >
-              <View
-                className="w-4 h-4 rounded-full"
-                style={{ backgroundColor: item.color }}
-              ></View>
-              <Text className="text-white">{item.name}</Text>
+              <View className="flex flex-row items-center space-x-2">
+                <View
+                  className="w-4 h-4 rounded-full"
+                  style={{ backgroundColor: item.color }}
+                ></View>
+                <Text className="text-white">{item.name}</Text>
+              </View>
+              <TouchableOpacity>
+                <FontAwesome name="times-circle" color="red" size={14} />
+              </TouchableOpacity>
             </View>
           )
         }}
