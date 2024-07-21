@@ -37,7 +37,7 @@ export function CreateLabel({
             placeholder="Nome"
             className="border border-zinc-800 rounded-md px-2 h-10 mt-2 text-white"
             placeholderTextColor={'rgb(80 80 80)'}
-            onTextInput={(e) => setName(e.nativeEvent.text)}
+            onChange={(e) => setName(e.nativeEvent.text)}
           />
         </View>
         <View>
